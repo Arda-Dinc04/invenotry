@@ -2,49 +2,44 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
-import usetodo from './AddItem.js';
+import usetodo from './IntalizeList.js';
+
+
 const App = () => {
 	// HINT: each "item" in our list names a name,
 	// a boolean to tell if its been completed, and a quantity
   const [items, setItems] = usetodo();
-  //global variable using hooks 
+  
+  //look into using hooks, maps, filters, callbacks
+  //
   //https://github.com/chrisblakely01/simple-shopping-list/blob/master/final/src/App.js
   //https://www.youtube.com/watch?v=_N6LQd6Y2UY&t=154s
   //https://github.com/ovuruska/getir-task-frontend
   //https://mui.com/material-ui/react-snackbar/
-  //
+  
 
 
 	const [inputValue, setInputValue] = useState('');
-	const [totalItemCount, setTotalItemCount] = useState(1);
+	
 
+
+	//keep event handlers in main 
 	const handleAddButtonClick = () => {
 		const newItem = {
 			itemName: inputValue,
 			quantity: 1,
 			isSelected: false,
 		};
-
 		const newItems = [...items, newItem];
-
 		setItems(newItems);
 		setInputValue('');
-		calculateTotal();
 	};
 
 	const toggleComplete = (index) => {
-		const newItems = [...items];
-		newItems[index].isSelected = !newItems[index].isSelected;
-
+		let newItems = [...items];
+		debugger;
+		newItems = newItems.filter((item,ind) => ind != index);
 		setItems(newItems);
-	};
-
-	const calculateTotal = () => {
-		const totalItemCount = items.reduce((total, item) => {
-			return total + item.quantity;
-		}, 0);
-
-		setTotalItemCount(totalItemCount);
 	};
 
 	return (
@@ -74,7 +69,7 @@ const App = () => {
 						</div>
 					))}
 				</div>
-				<div className='total'>Total: {totalItemCount}</div>
+				<div className='total'>Total: {items.length}</div>
 			</div>
 		</div>
 	);
